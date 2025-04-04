@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnSTACK | Admin Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin-dashboard.css">
+</head>
+<body>
+    <script>
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          // Redirect if not logged in
+          window.location.href = "login.html";
+        }
+      });
+
+      function logout() {
+        firebase.auth().signOut().then(() => {
+          window.location.href = "login.html";
+        });
+      }
+    </script>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">Learn<span>STACK</span></div>
+        <div class="sidebar-close">
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active"><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="#"><i class="fas fa-book"></i> Course Management</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+                <li><a href="#"><i class="fas fa-server"></i> System Monitoring</a></li>
+                <li><a href="#"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search...">
+                <button><i> class="fas fa-search"></i></button>
+            </div>
+            <div class="user-menu">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge">5</span>
+                </div>
+                <div class="user-profile">
+                    <img src="Assets/admin-avatar.png" alt="Admin Avatar">
+                    <span>Admin User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-container">
+            <!-- Welcome Section -->
+            <section class="welcome-section">
+                <h1>Welcome back, Admin!</h1>
+                <p>Here's an overview of the platform's performance</p>
+            </section>
+
+            <!-- Stats Cards -->
+            <section class="stats-cards">
+                <div class="stat-card">
+                    <div class="stat-icon users-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>458</h3>
+                        <p>Total Users</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon courses-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>32</h3>
+                        <p>Active Courses</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon faculty-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>24</h3>
+                        <p>Faculty Members</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon support-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>12</h3>
+                        <p>Support Requests</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- User & System Monitoring -->
+            <div class="dashboard-widgets">
+                <!-- Recent User Activities -->
+                <section class="widget recent-activities">
+                    <div class="widget-header">
+                        <h2>Recent User Activities</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="widget-content">
+                        <ul class="activity-list">
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-user-plus"></i></div>
+                                <div class="activity-info">
+                                    <p>New user registered: <strong>Maria Johnson</strong></p>
+                                    <span class="timestamp">Today, 10:45 AM</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-book"></i></div>
+                                <div class="activity-info">
+                                    <p>New course created: <strong>Advanced Database Systems</strong></p>
+                                    <span class="timestamp">Today, 9:15 AM</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-user-edit"></i></div>
+                                <div class="activity-info">
+                                    <p>Faculty account updated: <strong>Dr. Robert Chen</strong></p>
+                                    <span class="timestamp">Yesterday, 5:20 PM</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="activity-icon"><i class="fas fa-exclamation-circle"></i></div>
+                                <div class="activity-info">
+                                    <p>Support request submitted: <strong>Login Issue</strong></p>
+                                    <span class="timestamp">Apr 4, 3:30 PM</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- System Status -->
+                <section class="widget system-status">
+                    <div class="widget-header">
+                        <h2>System Status</h2>
+                        <a href="#" class="view-all">View Details</a>
+                    </div>
+                    <div class="widget-content">
+                        <div class="status-item">
+                            <div class="status-label">Server Load</div>
+                            <div class="status-bar">
+                                <div class="status-progress" style="width: 45%"></div>
+                            </div>
+                            <div class="status-value">45%</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Database Usage</div>
+                            <div class="status-bar">
+                                <div class="status-progress" style="width: 68%"></div>
+                            </div>
+                            <div class="status-value">68%</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Storage Space</div>
+                            <div class="status-bar">
+                                <div class="status-progress" style="width: 72%"></div>
+                            </div>
+                            <div class="status-value">72%</div>
+                        </div>
+                        <div class="status-item">
+                            <div class="status-label">Active Sessions</div>
+                            <div class="status-bar">
+                                <div class="status-progress" style="width: 32%"></div>
+                            </div>
+                            <div class="status-value">127 / 400</div>
+                        </div>
+                        <div class="system-uptime">
+                            <div class="uptime-label">System Uptime:</div>
+                            <div class="uptime-value">12 days, 5 hours, 42 minutes</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- User Distribution & Recent Announcements -->
+            <div class="dashboard-widgets">
+                <!-- User Distribution -->
+                <section class="widget user-distribution">
+                    <div class="widget-header">
+                        <h2>User Distribution</h2>
+                        <a href="#" class="view-all">View Details</a>
+                    </div>
+                    <div class="widget-content">
+                        <div class="chart-container">
+                            <div class="pie-chart">
+                                <div class="chart-segment students" style="--percentage: 75%; --color: var(--primary-color);">
+                                    <span class="segment-label">Students</span>
+                                </div>
+                                <div class="chart-segment faculty" style="--percentage: 20%; --color: var(--secondary-color);">
+                                    <span class="segment-label">Faculty</span>
+                                </div>
+                                <div class="chart-segment staff" style="--percentage: 5%; --color: #34D399;">
+                                    <span class="segment-label">Staff</span>
+                                </div>
+                                <div class="chart-center">
+                                    <span>458</span>
+                                    <span>Total Users</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: var(--primary-color);"></span>
+                                <span class="legend-label">Students</span>
+                                <span class="legend-value">344 (75%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: var(--secondary-color);"></span>
+                                <span class="legend-label">Faculty</span>
+                                <span class="legend-value">91 (20%)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-color" style="background-color: #34D399;"></span>
+                                <span class="legend-label">Staff</span>
+                                <span class="legend-value">23 (5%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Announcements -->
+                <section class="widget recent-announcements">
+                    <div class="widget-header">
+                        <h2>Recent Announcements</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="widget-content">
+                        <ul class="announcement-list">
+                            <li>
+                                <div class="announcement-icon"><i class="fas fa-bullhorn"></i></div>
+                                <div class="announcement-content">
+                                    <h4>System Maintenance</h4>
+                                    <p>Scheduled maintenance on April 10th from 2:00 AM to 5:00 AM. The system will be unavailable during this time.</p>
+                                    <div class="announcement-meta">
+                                        <span class="timestamp">Apr 5, 2025</span>
+                                        <span class="audience">All Users</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="announcement-icon"><i class="fas fa-bullhorn"></i></div>
+                                <div class="announcement-content">
+                                    <h4>New Feature: Assignment Auto-grading</h4>
+                                    <p>We've added auto-grading capabilities for multiple-choice assignments. Faculty training sessions scheduled for next week.</p>
+                                    <div class="announcement-meta">
+                                        <span class="timestamp">Apr 3, 2025</span>
+                                        <span class="audience">Faculty</span>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="announcement-icon"><i class="fas fa-bullhorn"></i></div>
+                                <div class="announcement-content">
+                                    <h4>Summer Semester Registration</h4>
+                                    <p>Summer semester registration opens on April 15th. All students should complete course selection by April 30th.</p>
+                                    <div class="announcement-meta">
+                                        <span class="timestamp">Apr 2, 2025</span>
+                                        <span class="audience">Students</span>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="create-announcement">
+                            <a href="#" class="btn">Create New Announcement</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Quick Access -->
+            <section class="quick-access">
+                <div class="widget-header">
+                    <h2>Quick Access</h2>
+                </div>
+                <div class="quick-access-grid">
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-user-plus"></i></div>
+                        <h3>Add User</h3>
+                    </a>
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-book-medical"></i></div>
+                        <h3>Create Course</h3>
+                    </a>
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-file-alt"></i></div>
+                        <h3>Generate Reports</h3>
+                    </a>
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-cogs"></i></div>
+                        <h3>System Settings</h3>
+                    </a>
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-bullhorn"></i></div>
+                        <h3>Broadcast Message</h3>
+                    </a>
+                    <a href="#" class="quick-access-card">
+                        <div class="quick-access-icon"><i class="fas fa-headset"></i></div>
+                        <h3>Support Tickets</h3>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>
