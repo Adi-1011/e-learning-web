@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Courses</title>
+  <link rel="stylesheet" href="css/student-course.css" />
+</head>
+<body>
+  <header>
+    <h1>My Enrolled Courses</h1>
+    <nav>
+      <a href="student-dashboard.html">← Back to Dashboard</a>
+    </nav>
+  </header>
+
+  <main id="course-container">
+    <!-- Courses will appear here -->
+  </main>
+
+  <script>
+    // Fetch courses from backend API
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/courses')
+        .then(res => res.json())
+        .then(courses => {
+          const container = document.getElementById('course-container');
+
+          if (!courses.length) {
+            container.innerHTML = '<p>No courses found.</p>';
+            return;
+          }
+
+          courses.forEach(course => {
+            const card = document.createElement('div');
+            card.className = 'course-card';
+            card.innerHTML = `
+              <img src="${course.thumbnail || 'https://via.placeholder.com/300x180'}" alt="Thumbnail" />
+              <h2>${course.title}</h2>
+              <p>${course.description}</p>
+              <a href="${course.videoUrl}" target="_blank">Watch Lecture</a>
+            `;
+            container.appendChild(card);
+          });
+        })
+        .catch(err => {
+          console.error('Failed to load courses:', err);
+          document.getElementById('course-container').innerHTML = '<p>Error loading courses. Try again later.</p>';
+        });
+    });
+  </script>
+</body>
+</html>

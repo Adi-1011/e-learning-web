@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .course {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome, <%= student.name %>!</h1>
+  <h2>Your Enrolled Courses</h2>
+
+  <% if (courses && courses.length > 0) { %>
+    <% courses.forEach(course => { %>
+      <div class="course">
+        <h3><%= course.title %></h3>
+        <p><%= course.description %></p>
+        <a href="<%= course.videoUrl %>" target="_blank">Watch Video</a>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>No courses enrolled yet.</p>
+  <% } %>
+</body>
+</html>

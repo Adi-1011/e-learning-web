@@ -1,3 +1,5 @@
+const Course = require('./models/course');
+
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -20,9 +22,9 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require("./routes/auth");
 app.use("/api", authRoutes);
 
-const Student = require('./models/Student');
+const Student = require('./models/user');
 // If you create models for Faculty/Admin later, import them similarly
-const Course = require('./models/course');
+
 
 // Student Dashboard
 app.get('/dashboard/student/:id', async (req, res) => {
@@ -43,6 +45,31 @@ app.get('/dashboard/admin/:id', async (req, res) => {
   res.render('admin-dashboard', { adminId: req.params.id });
 });
 
+
+app.get('/api/seed-courses', async (req, res) => {
+  try {
+    const courses = [
+      {
+        title: 'Introduction to Web Development',
+        description: 'Learn the basics of HTML, CSS, and JavaScript.',
+        videoUrl: 'https://www.youtube.com/watch?v=c2M-rlkkT5o&ab_channel=BroCode'
+      },
+      {
+        title: 'Advanced JavaScript',
+        description: 'Deep dive into advanced JS concepts.',
+        videoUrl: 'https://www.youtube.com/watch?v=EerdGm-ehJQ&ab_channel=SuperSimpleDev'
+      }
+    ];
+
+    await Course.insertMany(courses);
+    res.send('✅ Dummy courses added!');
+  } catch (error) {
+    console.error('❌ Error seeding courses:', error.message);
+    res.status(500).send('Error loading courses');
+  }
+});
+
+  
 
 // Start server
 const PORT = process.env.PORT || 5000;
